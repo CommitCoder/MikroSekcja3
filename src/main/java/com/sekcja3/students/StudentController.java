@@ -18,6 +18,15 @@ public class StudentController {
         return "Witaj";
     }
 
+    @GetMapping("/student")
+    public Student getStudent(){
+        Student student = new Student();
+        student.setFirstName("Arnold");
+        student.setLastName("Boczek");
+        student.setEmail("Marian_B@wp.pl");
+        return student;
+    }
+
 
 
 
