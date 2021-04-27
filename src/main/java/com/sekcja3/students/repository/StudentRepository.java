@@ -13,5 +13,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // ctrl + spacja dużo fajnych podpowiedzi do nazw metod z JPA Repo
     List<Student> findByLastName(String lastName);
 
+    List<Student> findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(String lastName, String firstName);
+
+
 
 }

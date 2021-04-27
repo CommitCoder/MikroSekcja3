@@ -119,6 +119,11 @@ public class StudentController {
         return studentRepository.findByLastName(lastName);
     }
 
+    @GetMapping("/find")
+    public List<Student> findStudent2(@RequestParam String lastName, @RequestParam String firstName){
+        return studentRepository.findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(lastName, firstName);
+    }
+
 
 
 
