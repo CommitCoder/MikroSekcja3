@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @RestController // zapytanie w jsonie :)
 @RequestMapping("/students") // /students początek każdego url w tym controlerze
@@ -105,7 +107,21 @@ public class StudentController {
                     return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
 
                 }).orElseGet(()-> ResponseEntity.notFound().build());
+
+
+
     }
+
+    // to be deleted
+
+    @GetMapping("/lastname")
+    public List<Student> findStudent(@RequestParam String lastName){
+        return studentRepository.findByLastName(lastName);
+    }
+
+
+
+
 
 
 
