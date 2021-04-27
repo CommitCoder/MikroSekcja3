@@ -6,6 +6,7 @@ import com.sekcja3.students.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,7 +59,7 @@ public class StudentController {
     //patch modyfikacja dane pola
 
     //delete
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         return studentRepository.findById(id)
                 .map(student -> {
@@ -67,10 +68,10 @@ public class StudentController {
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
     // PUT edycja całego zasobu
+    // PUT 1opcja
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> putStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
         return studentRepository.findById(id)
                 .map(studentFromDb ->{
@@ -82,6 +83,29 @@ public class StudentController {
     }
 
 
+//    // PUT 2 opcja
+//    // jeśli obiekt istnieje to go zmodyfikuje, jeśli nie to go stworzy z tym że response code będzie inny
+//    @PutMapping
+//    public ResponseEntity<Student> putStudent(@Valid @RequestBody Student student){
+//        return ResponseEntity.ok().body(studentRepository.save(student));
+//    }
+
+
+    //patch
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> patchStudent(@PathVariable Long id, @RequestBody Student student){
+        return studentRepository.findById(id)
+                .map(studentFromDb ->{
+                    if (!StringUtils.isEmpty(student.getFirstName())) {
+                        studentFromDb.setFirstName(student.getFirstName());
+                    }
+                    if (!StringUtils.isEmpty(student.getLastName())) {
+                        studentFromDb.setLastName(student.getLastName());
+                    }
+                    return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
+
+                }).orElseGet(()-> ResponseEntity.notFound().build());
+    }
 
 
 
