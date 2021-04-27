@@ -4,6 +4,7 @@ package com.sekcja3.students.controller;
 import com.sekcja3.students.model.Student;
 import com.sekcja3.students.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,11 @@ public class StudentController {
     }
 
     // podawany Json w metodzie POST zostanie z automatu zmapowany na obiekt Javowy Student
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Student addStudent(@RequestBody @Valid Student student){
         return studentRepository.save(student);
     }
-
-
 
     // orElseGet() lepszy dla tego casa
 
@@ -44,14 +44,29 @@ public class StudentController {
                 .orElseGet(() -> ResponseEntity.notFound().build()); // wykona się tylko wtedy gdy optional jest pusty
     }
 
-
-
 //       @GetMapping("/{id}")
 //    public ResponseEntity<Student> getStudent(@PathVariable  Long id){
 //       return studentRepository.findById(id)
 //               .map(student -> ResponseEntity.ok(student))
 //               .orElse(ResponseEntity.notFound().build());  // orElse wykonuje się zawsze nawet gdy .map() coś zwraca
 //    }
+
+
+    // post edycja
+
+
+    //patch modyfikacja dane pola
+
+    //delete
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id){
+        return studentRepository.findById(id)
+                .map(student -> {
+                    studentRepository.delete(student);
+                    return ResponseEntity.ok().build();
+                }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
 
 
