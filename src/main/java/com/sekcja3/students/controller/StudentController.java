@@ -24,23 +24,23 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudents(){
+    public List<Student> getStudents() {
         return studentRepository.findAll();
     }
 
     // podawany Json w metodzie POST zostanie z automatu zmapowany na obiekt Javowy Student
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Student addStudent(@RequestBody @Valid Student student){
+    public Student addStudent(@RequestBody @Valid Student student) {
         return studentRepository.save(student);
     }
 
     // orElseGet() lepszy dla tego casa
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudent( @PathVariable  Long id){
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
-        return studentOptional.map(ResponseEntity::ok)
+        return studentOptional.map(student -> ResponseEntity.ok(student))
                 .orElseGet(() -> ResponseEntity.notFound().build()); // wykona się tylko wtedy gdy optional jest pusty
     }
 
@@ -59,12 +59,26 @@ public class StudentController {
 
     //delete
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long id){
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         return studentRepository.findById(id)
                 .map(student -> {
                     studentRepository.delete(student);
                     return ResponseEntity.ok().build();
                 }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+    // PUT edycja całego zasobu
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> putStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
+        return studentRepository.findById(id)
+                .map(studentFromDb ->{
+                    studentFromDb.setFirstName(student.getFirstName());
+                    studentFromDb.setLastName(student.getLastName());
+                    studentFromDb.setEmail(student.getEmail());
+                    return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
+                }).orElseGet(()->ResponseEntity.notFound().build());
     }
 
 
