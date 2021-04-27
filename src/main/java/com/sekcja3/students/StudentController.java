@@ -4,9 +4,10 @@ package com.sekcja3.students;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@RestController // zapytanie w jsonie :)
 public class StudentController {
 
     private StudentRepository studentRepository;
@@ -41,7 +42,7 @@ public class StudentController {
     // podawany Json w metodzie POST zostanie z automatu zmapowany na obiekt Javowy Student
 
     @PostMapping("students")
-    public Student addStudent(@RequestBody Student student){
+    public Student addStudent(@RequestBody @Valid Student student){
         return studentRepository.save(student);
     }
 
