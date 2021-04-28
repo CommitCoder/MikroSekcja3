@@ -1,15 +1,11 @@
 package com.sekcja3.students;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "car")
-@Component
 @Validated
-public class CarProperties {
+public class MyProperties {
 
     @NotNull
     private String mark;
