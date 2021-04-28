@@ -1,10 +1,13 @@
 package com.sekcja3.students;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -19,25 +22,19 @@ public class StudentsApplication {
 //		notEmptyOptional.orElseGet(() ->showText2());   // wywołuje się tylko gdy optional pusty
 	}
 
-	@Bean // metoda jest wywoływana bo ma adnotację @Bean wiec jak wstaje Spring to jest on wykonywana
-	public void showCarProperties(){
-//		System.out.println(carProperties.getMark() + " " + carProperties.getModel());
+	@Value("${my.dogs}")
+	private List<String> dogs;
 
-		System.out.println(carProperties().getMark() + " " + carProperties().getModel());
-		System.out.println(horseProperties().getMark() + " " + horseProperties().getModel());
+	@Value("${show.dogs}")
+	private boolean showDogs;
 
-	}
-
-	@Bean
-	@ConfigurationProperties(prefix = "car")
-	MyProperties carProperties(){
-		return new MyProperties();
-	}
-
-	@Bean
-	@ConfigurationProperties(prefix = "horse")
-	MyProperties horseProperties(){
-		return new MyProperties();
+	@PostConstruct
+	void showDogs(){
+		if(showDogs){
+			dogs.forEach(System.out::println);
+		}else{
+			System.out.println("nie ma psów");
+		}
 	}
 
 
@@ -46,6 +43,44 @@ public class StudentsApplication {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	@Bean // metoda jest wywoływana bo ma adnotację @Bean wiec jak wstaje Spring to jest on wykonywana
+//	public void showCarProperties(){
+////		System.out.println(carProperties.getMark() + " " + carProperties.getModel());
+//
+//		System.out.println(carProperties().getMark() + " " + carProperties().getModel());
+//		System.out.println(horseProperties().getMark() + " " + horseProperties().getModel());
+//
+//	}
+//
+//	@Bean
+//	@ConfigurationProperties(prefix = "car")
+//	MyProperties carProperties(){
+//		return new MyProperties();
+//	}
+//
+//	@Bean
+//	@ConfigurationProperties(prefix = "horse")
+//	MyProperties horseProperties(){
+//		return new MyProperties();
+//	}
 
 
 
