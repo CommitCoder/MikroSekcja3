@@ -1,12 +1,23 @@
 package com.sekcja3.students;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Optional;
 
 @SpringBootApplication
 public class StudentsApplication {
+
+	@Autowired
+	private CarProperties carProperties;
+
+	@Bean // metoda jest wywoływana bo ma adnotację @Bean wiec jak wstaje Spring to jest on wykonywana
+	public void showCarProperties(){
+		System.out.println(carProperties.getMark() + " " + carProperties.getModel());
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(StudentsApplication.class, args);
