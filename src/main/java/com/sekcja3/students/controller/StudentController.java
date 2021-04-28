@@ -4,6 +4,9 @@ package com.sekcja3.students.controller;
 import com.sekcja3.students.model.Student;
 import com.sekcja3.students.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -12,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @RestController // zapytanie w jsonie :)
 @RequestMapping("/students") // /students początek każdego url w tym controlerze
@@ -115,8 +116,9 @@ public class StudentController {
     // to be deleted
 
     @GetMapping("/lastname")
-    public List<Student> findStudent(@RequestParam String lastName){
-        return studentRepository.findByLastName(lastName);
+    public List<Student> findStudent(@RequestParam String lastName, @RequestParam int numberOfPage){
+        Pageable pageable = PageRequest.of(numberOfPage, 2, Sort.by("firstName"));
+        return studentRepository.findByLastName(lastName, pageable);
     }
 
     @GetMapping("/find")
@@ -124,7 +126,10 @@ public class StudentController {
         return studentRepository.findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(lastName, firstName);
     }
 
-
+    @GetMapping("/marian")
+    public List<Student> findStudent3(){
+        return studentRepository.findStudentsWithNameMarian();
+    }
 
 
 
