@@ -109,27 +109,53 @@ public class StudentController {
 
                 }).orElseGet(()-> ResponseEntity.notFound().build());
 
-
-
     }
 
-    // to be deleted
 
-    @GetMapping("/lastname")
-    public List<Student> findStudent(@RequestParam String lastName, @RequestParam int numberOfPage){
-        Pageable pageable = PageRequest.of(numberOfPage, 2, Sort.by("firstName"));
-        return studentRepository.findByLastName(lastName, pageable);
-    }
 
-    @GetMapping("/find")
-    public List<Student> findStudent2(@RequestParam String lastName, @RequestParam String firstName){
-        return studentRepository.findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(lastName, firstName);
-    }
 
-    @GetMapping("/marian")
-    public List<Student> findStudent3(){
-        return studentRepository.findStudentsWithNameMarian();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // BUDNY KOD ale można popatrzeć na przykłady
+
+//    @GetMapping("/lastname")
+//    public List<Student> findStudent(@RequestParam String lastName, @RequestParam int numberOfPage){
+//        Pageable pageable = PageRequest.of(numberOfPage, 2, Sort.by("firstName"));
+//        return studentRepository.findByLastName(lastName, pageable);
+//    }
+//
+//    @GetMapping("/find")
+//    public List<Student> findStudent2(@RequestParam String lastName, @RequestParam String firstName){
+//        return studentRepository.findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(lastName, firstName);
+//    }
+//
+//    @GetMapping("/marian")
+//    public List<Student> findStudent3(){
+//        return studentRepository.findStudentsWithNameMarian();
+//    }
 
 
 

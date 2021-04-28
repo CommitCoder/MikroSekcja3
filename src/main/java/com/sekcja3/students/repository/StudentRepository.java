@@ -12,13 +12,34 @@ import java.util.List;
 @Repository  //  extends JpaRepository  ->  tak naprawdę @Repository nie jest potrzebne ale dla czytelności
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    // ctrl + spacja dużo fajnych podpowiedzi do nazw metod z JPA Repo
-    List<Student> findByLastName(String lastName, Pageable pageable);
 
-    List<Student> findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(String lastName, String firstName);
 
-    @Query("SELECT s from Student s where s.firstName = 'Marian' ")
-    List<Student> findStudentsWithNameMarian();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // BUDNY KOD ale można popatrzeć na przykłady
+
+
+//     ctrl + spacja dużo fajnych podpowiedzi do nazw metod z JPA Repo
+//    List<Student> findByLastName(String lastName, Pageable pageable);
+
+//    List<Student> findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(String lastName, String firstName);
+//
+//    @Query("SELECT s from Student s where s.firstName = 'Marian' ")
+//    List<Student> findStudentsWithNameMarian();
 
 }

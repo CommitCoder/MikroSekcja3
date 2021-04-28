@@ -15,22 +15,22 @@ public class StudentsApplication {
 		//przykład z optionalem
 		Optional<String> notEmptyOptional = Optional.of("Wartość");
 
-		notEmptyOptional.orElse(showText()); 			// wywołuje się zawsze
-		notEmptyOptional.orElseGet(() ->showText2());   // wywołuje się tylko gdy optional pusty
+//		notEmptyOptional.orElse(showText()); 			// wywołuje się zawsze
+//		notEmptyOptional.orElseGet(() ->showText2());   // wywołuje się tylko gdy optional pusty
 
 
 	}
 
-	public static String showText(){
-		System.out.println("");
-		System.out.println("Metoda się wywołała");
-		return "Oczekuję, aby zwrócić string ";
-	}
-
-	public static String showText2(){
-		System.out.println("");
-		System.out.println("Metoda się wywołała 22222222");
-		return "Oczekuję, aby zwrócić string 2222222222 ";
-	}
+//	public static String showText(){
+//		System.out.println("");
+//		System.out.println("Metoda się wywołała");
+//		return "Oczekuję, aby zwrócić string ";
+//	}
+//
+//	public static String showText2(){
+//		System.out.println("");
+//		System.out.println("Metoda się wywołała 22222222");
+//		return "Oczekuję, aby zwrócić string 2222222222 ";
+//	}
 
 }
